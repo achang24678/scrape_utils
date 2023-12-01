@@ -46,11 +46,11 @@ const Main = () => {
                             handleClick={handleScrape}
                         />
                     </div>
-                    <div className="flex flex-col w-[50%]">
+                    {/* <div className="flex flex-col w-[50%]">
                         {scrapedResult && scrapedResult?.map((img, index) => (
                             <div key={index}>{img}</div>
                         ))}
-                    </div>
+                    </div> */}
                     <Clipboard urls={scrapedResult} />
                 </div>
             </div>
