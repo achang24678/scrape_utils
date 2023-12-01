@@ -1,17 +1,17 @@
 import React, { useRef } from 'react';
 
-const Clipboard = ({ }) => {
-    const textAreaRef = useRef(null);
+const Clipboard = ({ urls }: any) => {
+    const textAreaRef: any = useRef(null);
 
-    const urls = [
-        'http://example.com/url1',
-        'http://example.com/url2',
-        'http://example.com/url3',
-        // Add more URLs here
-    ];
+    // const urls = [
+    //     'http://example.com/url1',
+    //     'http://example.com/url2',
+    //     'http://example.com/url3',
+    //     // Add more URLs here
+    // ];
 
     const copyToClipboard = () => {
-        const textArea = textAreaRef.current;
+        const textArea: any = textAreaRef.current;
         textArea.select();
         document.execCommand('copy');
     };

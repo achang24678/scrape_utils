@@ -9,7 +9,7 @@ import Clipboard from "./Clipboard";
 const Main = () => {
     const [pids, setPids] = useState([]);
     const [loading, setLoading] = useState(false);
-    const [scrapedResult, setScrapedResult] = useState(null);
+    const [scrapedResult, setScrapedResult] = useState([]);
     const handleScrape = async () => {
         try {
             console.log(pids)
