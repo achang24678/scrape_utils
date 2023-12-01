@@ -1,6 +1,7 @@
 "use server";
 
-const puppeteer = require("puppeteer");
+// const puppeteer = require("puppeteer");
+const chromium = require("chrome-aws-lambda") // using chrome-aws-lambda so puppeteer can work on vercel deployment
 
 function delay(time: number) {
     return new Promise(function (resolve) {
@@ -9,7 +10,14 @@ function delay(time: number) {
 }
 
 export async function scrapeProduct(productIds: string[]) {
-    const browser = await puppeteer.launch({ headless: "new", slowMo: 10 });
+    // const browser = await puppeteer.launch({ headless: "new", slowMo: 10 });
+    const browser = await chromium.puppeteer.launch({
+        args: [...chromium.args, "--hide-scrollbars", "--disable-web-security"],
+        defaultViewport: chromium.defaultViewport,
+        executablePath: await chromium.executablePath,
+        headless: true,
+        ignoreHTTPSErrors: true,
+    })
     const page = await browser.newPage();
 
     let results: any = [];
