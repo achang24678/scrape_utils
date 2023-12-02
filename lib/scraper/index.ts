@@ -65,6 +65,10 @@ export async function scrapeProduct(productIds: string[]) {
             height: 600,
         });
 
+        // test
+        await page.waitForSelector('.index-item--XKK77 img[src]', { timeout: 5 * 60 * 1000 });
+
+
         const imgs = await page.$$eval('.index-item--XKK77 img[src]', imgs => imgs.map(img => img.getAttribute('src')));
         if (imgs.length) {
             results.push(imgs[0])
