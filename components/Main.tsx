@@ -39,7 +39,7 @@ const Main = () => {
                                 setPids(newPids)
                             }}
                         />
-                        {loading && <div>LOADING...</div>}
+                        {loading && <div>New LOADING...</div>}
                         <CustomButton
                             title="Scrape Babe"
                             containerStyles="bg-primary-blue text-white rounded-full mt-10"
