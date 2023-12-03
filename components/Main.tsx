@@ -6,15 +6,34 @@ import CustomButton from './CustomButton'
 import Image from 'next/image';
 import Clipboard from "./Clipboard";
 
+import { startScrape } from '@/lib/actions';
+
+
 const Main = () => {
     const [pids, setPids] = useState([]);
     const [loading, setLoading] = useState(false);
     const [scrapedResult, setScrapedResult] = useState([]);
+    const scrape = async () => {
+        const res = await fetch("/api/scraper", {
+            // cache: "no-store",
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                message: "hello",
+                pids
+            })
+        });
+        const response = await res.json();
+        console.log(response)
+    }
     const handleScrape = async () => {
         try {
             console.log(pids)
             setLoading(true);
-            const res = await scrapeProduct(pids);
+            // const res = await scrapeProduct(pids);
+            const res = await startScrape(pids)
             setScrapedResult(res)
             setLoading(false);
             console.log(res);
@@ -43,7 +62,7 @@ const Main = () => {
                         <CustomButton
                             title="Scrape Babe"
                             containerStyles="bg-primary-blue text-white rounded-full mt-10"
-                            handleClick={handleScrape}
+                            handleClick={scrape}
                         />
                     </div>
                     {/* <div className="flex flex-col w-[50%]">

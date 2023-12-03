@@ -1,32 +1,10 @@
 "use server";
 
-// const puppeteer = require("puppeteer");
+const puppeteer = require("puppeteer");
 // const chromium = require("chrome-aws-lambda") // using chrome-aws-lambda so puppeteer can work on vercel deployment
 // const chromium = require('@sparticuz/chromium-min');
-const puppeteer = require('puppeteer-core');
-// let _page;
-
-// async function getBrowser() {
-//     // local development is broken for this 👇
-//     // but it works in vercel so I'm not gonna touch it
-//     return puppeteer.launch({
-//         args: [...chromium.args, '--hide-scrollbars', '--disable-web-security'],
-//         defaultViewport: chromium.defaultViewport,
-//         executablePath: await chromium.executablePath(
-//             `https://github.com/Sparticuz/chromium/releases/download/v116.0.0/chromium-v116.0.0-pack.tar`
-//         ),
-//         headless: chromium.headless,
-//         ignoreHTTPSErrors: true,
-//     });
-// }
-
-// async function getPage() {
-//     if (_page) return _page;
-
-//     const browser = await getBrowser();
-//     _page = await browser.newPage();
-//     return _page;
-// }
+// const chromium = require('@sparticuz/chromium');
+// const puppeteer = require('puppeteer-core');
 
 function delay(time: number) {
     return new Promise(function (resolve) {
@@ -35,11 +13,11 @@ function delay(time: number) {
 }
 
 export async function scrapeProduct(productIds: string[]) {
-    // const browser = await puppeteer.launch({ headless: "new", slowMo: 10 });
+    const browser = await puppeteer.launch({ headless: "new", slowMo: 10 });
     // console.log(process.env.SBR_WS_ENDPOINT)
-    const browser = await puppeteer.connect({
-        browserWSEndpoint: "wss://brd-customer-hl_6e783edd-zone-scraping_browser1:i1x25utp5yig@brd.superproxy.io:9222"
-    });
+    // const browser = await puppeteer.connect({
+    //     browserWSEndpoint: "wss://brd-customer-hl_6e783edd-zone-scraping_browser1:i1x25utp5yig@brd.superproxy.io:9222"
+    // });
     // const browser = await chromium.puppeteer.launch({
     //     args: [...chromium.args, "--hide-scrollbars", "--disable-web-security"],
     //     defaultViewport: chromium.defaultViewport,
@@ -47,6 +25,14 @@ export async function scrapeProduct(productIds: string[]) {
     //     headless: true,
     //     ignoreHTTPSErrors: true,
     // })
+    // const browser = await puppeteer.launch({
+    //     args: chromium.args,
+    //     defaultViewport: chromium.defaultViewport,
+    //     executablePath: await chromium.executablePath(),
+    //     headless: chromium.headless,
+    //     ignoreHTTPSErrors: true,
+    // });
+
     const page = await browser.newPage();
     // const page = await getPage();
 
@@ -84,6 +70,6 @@ export async function scrapeProduct(productIds: string[]) {
     await browser.close();
     return results;
 
-    // console.log(`FINISHED SCRAPING, YOU SCRAPED TOTAL OF ${usersArray.length} Profiles`)
-    // await browser.close();
+    console.log(`FINISHED SCRAPING, YOU SCRAPED TOTAL OF ${usersArray.length} Profiles`)
+    await browser.close();
 }
