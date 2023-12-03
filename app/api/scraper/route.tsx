@@ -58,7 +58,13 @@ export async function POST(request: NextRequest) {
             // given whole url ------
             // const url = pid;
 
-            await page.goto(url);
+            await page.goto(url, { waitUntil: 'domcontentloaded' });
+            /**
+                await page.goto(url, { waitUntil: 'load' });
+                await page.goto(url, { waitUntil: 'domcontentloaded' });
+                await page.goto(url, { waitUntil: 'networkidle0' });
+                await page.goto(url, { waitUntil: 'networkidle2' });
+             */
 
             const imgs = await page.$$eval('.index-item--XKK77 img[src]', imgs => imgs.map(img => img.getAttribute('src')));
 
