@@ -40,12 +40,12 @@ export async function POST(request: NextRequest) {
     const { pids } = res;
     try {
         // proxy way --------
-        // const browser = await puppeteer.connect({
-        //     browserWSEndpoint: "wss://brd-customer-hl_6e783edd-zone-scraping_browser1:i1x25utp5yig@brd.superproxy.io:9222"
-        // });
+        const browser = await puppeteer.connect({
+            browserWSEndpoint: "wss://brd-customer-hl_6e783edd-zone-scraping_browser1:i1x25utp5yig@brd.superproxy.io:9222"
+        });
 
         // default way --------
-        const browser = await puppeteer.launch({ headless: true, slowMo: 10 });
+        // const browser = await puppeteer.launch({ headless: true, slowMo: 10 });
         const page = await browser.newPage();
 
         let results: any = [];
